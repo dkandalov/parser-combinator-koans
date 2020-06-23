@@ -7,9 +7,9 @@ class `Step 9 - plus-minus-multiply parser` {
     private val number = number().map { IntLiteral(it.toInt()) }
 
     private val plusOrMinus =
-        inOrder(number, repeat(inOrder(oneOf(string(" + "), string(" - ")), ref { expression1 })))
+        inOrder(ref { expression1 }, repeat(inOrder(oneOf(string(" + "), string(" - ")), ref { expression1 })))
             .map { (first, rest) ->
-                rest.fold(first as Expression) { left, (op, right) ->
+                rest.fold(first) { left, (op, right) ->
                     when (op) {
                         " - " -> Minus(left, right)
                         " + " -> Plus(left, right)
@@ -43,6 +43,9 @@ class `Step 9 - plus-minus-multiply parser` {
     }
 
     @Test fun `3 - add and multiply`() {
+        expression.parse(Input("1 * 2 + 3"))?.payload
+            .toStringExpression() shouldEqual "((1 * 2) + 3)"
+
         expression.parse(Input("1 + 2 * 3"))?.payload
             .toStringExpression() shouldEqual "(1 + (2 * 3))"
 
