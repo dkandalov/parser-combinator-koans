@@ -25,6 +25,9 @@ class `Step 9 - plus-minus-multiply parser` {
 
     @Ignore
     @Test fun `3 - add and multiply`() {
+        expression.parse(Input("1 * 2 + 3"))?.payload
+            .toStringExpression() shouldEqual "((1 * 2) + 3)"
+
         expression.parse(Input("1 + 2 * 3"))?.payload
             .toStringExpression() shouldEqual "(1 + (2 * 3))"
 
