@@ -37,7 +37,6 @@ class `Step 2 - combining parsers in order` {
         )
     }
 
-/*
     @Test fun `3 - full match with three parsers`() {
         val parser = inOrder(string("foo"), string("bar"), string("buz"))
         val input = Input("foobarbuz")
@@ -46,5 +45,4 @@ class `Step 2 - combining parsers in order` {
             nextInput = input.consumed()
         )
     }
-*/
 }
