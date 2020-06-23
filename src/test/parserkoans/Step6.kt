@@ -1,5 +1,6 @@
 package parserkoans
 
+import org.junit.Ignore
 import org.junit.Test
 import parserkoans.util.shouldEqual
 
@@ -8,22 +9,20 @@ fun <T> ref(f: () -> Parser<T>): Parser<T> = object : Parser<T> {
 }
 
 class `Step 6 - plus parser` {
-    private val number = number().map { IntLiteral(it.toInt()) }
+    private val expression: Parser<Expression> = TODO()
 
-    private val plus = inOrder(number, string(" + "), ref { expression })
-        .map { (left, _, right) -> Plus(left, right) }
-
-    private val expression: Parser<Expression> = oneOf(plus, number)
-
+    @Ignore
     @Test fun `1 - parse number`() {
         expression.parse(Input("123"))?.payload shouldEqual IntLiteral(123)
     }
 
+    @Ignore
     @Test fun `2 - add two numbers`() {
         expression.parse(Input("1 + 2"))?.payload shouldEqual Plus(IntLiteral(1), IntLiteral(2))
         expression.parse(Input("12 + 34"))?.payload shouldEqual Plus(IntLiteral(12), IntLiteral(34))
     }
 
+    @Ignore
     @Test fun `3 - add three numbers (right associative)`() {
         expression.parse(Input("1 + 2 + 3"))?.payload.let {
             it shouldEqual Plus(
