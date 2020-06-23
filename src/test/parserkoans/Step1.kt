@@ -22,19 +22,19 @@ class `Step 1 - string parser` {
     @Test fun `2 - full match`() {
         val input = Input("foo")
         parser.parse(input) shouldEqual
-            Output("foo", nextInput = input.consumed())
+            Output(payload = "foo", nextInput = input.consumed())
     }
 
     @Test fun `3 - prefix match`() {
         val input = Input("foo--")
         parser.parse(input) shouldEqual
-            Output("foo", nextInput = input.copy(offset = 3))
+            Output(payload = "foo", nextInput = input.copy(offset = 3))
     }
 
     @Test fun `4 - postfix match`() {
         val input = Input("--foo", offset = 2)
         parser.parse(input) shouldEqual
-            Output("foo", nextInput = input.consumed())
+            Output(payload = "foo", nextInput = input.consumed())
     }
 }
 

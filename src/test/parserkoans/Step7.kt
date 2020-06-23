@@ -6,7 +6,7 @@ import parserkoans.util.shouldEqual
 class `Step 7 - minus parser` {
     private val number = number().map { IntLiteral(it.toInt()) }
 
-    private val minus = inOrder(number, repeat(inOrder(string(" - "), number)))
+    private val minus = inOrder(number, oneOrMore(inOrder(string(" - "), number)))
         .map { (first, rest) ->
             rest.fold(first as Expression) { left, (_, right) -> Minus(left, right) }
         }

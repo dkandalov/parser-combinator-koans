@@ -4,7 +4,7 @@ import org.junit.Test
 import parserkoans.util.shouldEqual
 
 fun number(): Parser<String> =
-    repeat(oneOf(*(0..9).map { string(it.toString()) }.toTypedArray()))
+    oneOrMore(oneOf(*(0..9).map { string(it.toString()) }.toTypedArray()))
         .map { it.joinToString("") }
 
 fun <T, R> Parser<T>.map(transform: (T) -> R): Parser<R> = object : Parser<R> {

@@ -7,7 +7,7 @@ class `Step 10 - plus-minus-multiply with parens parser` {
     private val number = number().map { IntLiteral(it.toInt()) }
 
     private val plusOrMinus =
-        inOrder(ref { expression1 }, repeat(inOrder(oneOf(string(" + "), string(" - ")), ref { expression1 })))
+        inOrder(ref { expression1 }, oneOrMore(inOrder(oneOf(string(" + "), string(" - ")), ref { expression1 })))
             .map { (first, rest) ->
                 rest.fold(first) { left, (op, right) ->
                     when (op) {
@@ -18,7 +18,7 @@ class `Step 10 - plus-minus-multiply with parens parser` {
                 }
             }
 
-    private val multiply = inOrder(ref { term }, repeat(inOrder(string(" * "), ref { term })))
+    private val multiply = inOrder(ref { term }, oneOrMore(inOrder(string(" * "), ref { term })))
         .map { (first, rest) ->
             rest.fold(first) { left, (_, right) -> Multiply(left, right) }
         }

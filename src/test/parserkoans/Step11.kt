@@ -30,7 +30,7 @@ class `Step 11 - parser performance` {
             .with(outputCache)
 
     private val plus =
-        inOrder(ref { expression1 }, repeat(inOrder(string(" + "), ref { expression1 })))
+        inOrder(ref { expression1 }, oneOrMore(inOrder(string(" + "), ref { expression1 })))
             .map { (first, rest) ->
                 rest.fold(first) { left, (_, right) -> Plus(left, right) }
             }
@@ -38,7 +38,7 @@ class `Step 11 - parser performance` {
             .with(outputCache)
 
     private val multiply =
-        inOrder(ref { number }, repeat(inOrder(string(" * "), ref { number })))
+        inOrder(ref { number }, oneOrMore(inOrder(string(" * "), ref { number })))
             .map { (first, rest) ->
                 rest.fold(first) { left, (_, right) -> Multiply(left, right) }
             }
