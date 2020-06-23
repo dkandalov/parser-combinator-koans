@@ -4,9 +4,16 @@ import org.junit.Ignore
 import org.junit.Test
 import parserkoans.util.shouldEqual
 
-fun number(): Parser<String> = TODO()
+fun number(): Parser<String> = TODO("combine parsers")
+
+fun <T, R> Parser<T>.map(transform: (T) -> R) = object : Parser<R> {
+    override fun parse(input: Input): Output<R>? {
+        TODO()
+    }
+}
 
 class `Step 5 - number parser` {
+
     private val parser = number()
 
     @Ignore
@@ -45,11 +52,9 @@ class `Step 5 - number parser` {
             Output("123", nextInput = input.consumed())
     }
 
-/*
     @Test fun `6 - convert parser payload to Int`() {
         val input = Input("123")
         parser.map { it.toInt() }.parse(input) shouldEqual
             Output(123, nextInput = input.consumed())
     }
-*/
 }

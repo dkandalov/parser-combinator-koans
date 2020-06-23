@@ -4,9 +4,14 @@ import org.junit.Ignore
 import org.junit.Test
 import parserkoans.util.shouldEqual
 
-fun string(s: String): Parser<String> = TODO()
+fun string(s: String) = object : Parser<String> {
+    override fun parse(input: Input): Output<String>? {
+        TODO()
+    }
+}
 
 class `Step 1 - string parser` {
+
     private val parser = string("foo")
 
     @Ignore
@@ -21,21 +26,21 @@ class `Step 1 - string parser` {
     @Test fun `2 - full match`() {
         val input = Input("foo")
         parser.parse(input) shouldEqual
-            Output("foo", nextInput = input.consumed())
+            Output(payload = "foo", nextInput = input.consumed())
     }
 
     @Ignore
     @Test fun `3 - prefix match`() {
         val input = Input("foo--")
         parser.parse(input) shouldEqual
-            Output("foo", nextInput = input.copy(offset = 3))
+            Output(payload = "foo", nextInput = input.copy(offset = 3))
     }
 
     @Ignore
     @Test fun `4 - postfix match`() {
         val input = Input("--foo", offset = 2)
         parser.parse(input) shouldEqual
-            Output("foo", nextInput = input.consumed())
+            Output(payload = "foo", nextInput = input.consumed())
     }
 }
 

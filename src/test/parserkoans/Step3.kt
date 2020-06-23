@@ -4,10 +4,19 @@ import org.junit.Ignore
 import org.junit.Test
 import parserkoans.util.shouldEqual
 
-fun <T> oneOf(vararg parsers: Parser<T>): Parser<T> = TODO()
+fun <T> oneOf(vararg parsers: Parser<T>) = object : Parser<T> {
+    override fun parse(input: Input): Output<T>? {
+        TODO()
+    }
+}
 
 class `Step 3 - choosing one of the parsers` {
-    private val parser = oneOf(string("foo"), string("bar"), string("buz"))
+
+    private val parser: Parser<String> = oneOf(
+        string("foo"),
+        string("bar"),
+        string("buz")
+    )
 
     @Ignore
     @Test fun `1 - no match`() {

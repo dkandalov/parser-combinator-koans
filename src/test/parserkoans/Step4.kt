@@ -4,10 +4,15 @@ import org.junit.Ignore
 import org.junit.Test
 import parserkoans.util.shouldEqual
 
-fun <T> repeat(parser: Parser<T>): Parser<List<T>> = TODO()
+fun <T> oneOrMore(parser: Parser<T>) = object : Parser<List<T>> {
+    override fun parse(input: Input): Output<List<T>>? {
+        TODO()
+    }
+}
 
-class `Step 4 - repeat parser` {
-    private val parser = repeat(string("foo"))
+class `Step 4 - one or more parser` {
+
+    private val parser = oneOrMore(string("foo"))
 
     @Ignore
     @Test fun `1 - no match`() {

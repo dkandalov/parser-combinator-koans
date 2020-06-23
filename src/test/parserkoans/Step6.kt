@@ -9,7 +9,8 @@ fun <T> ref(f: () -> Parser<T>): Parser<T> = object : Parser<T> {
 }
 
 class `Step 6 - plus parser` {
-    private val expression: Parser<Expression> = TODO()
+
+    private val expression: Parser<Expression> = TODO("combine parsers")
 
     @Ignore
     @Test fun `1 - parse number`() {
