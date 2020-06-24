@@ -2,7 +2,6 @@ package parserkoans
 
 import org.junit.Ignore
 import org.junit.Test
-import parserkoans.util.shouldEqual
 
 fun <T> oneOrMore(parser: Parser<T>) = object : Parser<List<T>> {
     override fun parse(input: Input): Output<List<T>>? {
@@ -25,21 +24,27 @@ class `Step 4 - one or more parser` {
     @Ignore
     @Test fun `2 - match once`() {
         val input = Input("foo")
-        parser.parse(input) shouldEqual
-            Output(listOf("foo"), nextInput = input.consumed())
+        parser.parse(input) shouldEqual Output(
+            payload = listOf("foo"),
+            nextInput = input.consumed()
+        )
     }
 
     @Ignore
     @Test fun `3 - match twice`() {
         val input = Input("foofoo")
-        parser.parse(input) shouldEqual
-            Output(listOf("foo", "foo"), nextInput = input.consumed())
+        parser.parse(input) shouldEqual Output(
+            payload = listOf("foo", "foo"),
+            nextInput = input.consumed()
+        )
     }
 
     @Ignore
-    @Test fun `4 - match three times`() {
-        val input = Input("foofoofoo")
-        parser.parse(input) shouldEqual
-            Output(listOf("foo", "foo", "foo"), nextInput = input.consumed())
+    @Test fun `4 - match five times`() {
+        val input = Input("foofoofoofoofoo")
+        parser.parse(input) shouldEqual Output(
+            payload = listOf("foo", "foo", "foo", "foo", "foo"),
+            nextInput = input.consumed()
+        )
     }
 }

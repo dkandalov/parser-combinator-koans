@@ -2,7 +2,6 @@ package parserkoans
 
 import org.junit.Ignore
 import org.junit.Test
-import parserkoans.util.shouldEqual
 
 fun <T1, T2> inOrder(parser1: Parser<T1>, parser2: Parser<T2>) =
     object : Parser<List2<T1, T2>> {
@@ -32,7 +31,7 @@ class `Step 2 - combining parsers in order` {
         val parser = inOrder(string("foo"), string("bar"))
         val input = Input("foobar")
         parser.parse(input) shouldEqual Output(
-            List2("foo", "bar"),
+            payload = List2("foo", "bar"),
             nextInput = input.consumed()
         )
     }
@@ -41,7 +40,7 @@ class `Step 2 - combining parsers in order` {
         val parser = inOrder(string("foo"), string("bar"), string("buz"))
         val input = Input("foobarbuz")
         parser.parse(input) shouldEqual Output(
-            List3("foo", "bar", "buz"),
+            payload = List3("foo", "bar", "buz"),
             nextInput = input.consumed()
         )
     }

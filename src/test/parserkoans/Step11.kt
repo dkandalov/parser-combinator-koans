@@ -3,7 +3,6 @@ package parserkoans
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
-import parserkoans.util.shouldEqual
 
 fun <T> Parser<T>.with(outputCache: HashMap<Pair<Parser<T>, Int>, Output<T>?>): Parser<T> =
     object : Parser<T> {

@@ -2,7 +2,6 @@ package parserkoans
 
 import org.junit.Ignore
 import org.junit.Test
-import parserkoans.util.shouldEqual
 
 class `Step 10 - plus-minus-multiply with parens parser` {
 

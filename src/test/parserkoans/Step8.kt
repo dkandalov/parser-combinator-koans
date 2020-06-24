@@ -2,7 +2,6 @@ package parserkoans
 
 import org.junit.Ignore
 import org.junit.Test
-import parserkoans.util.*
 
 class `Step 8 - plus-minus parser` {
 

@@ -1,4 +1,4 @@
-@file:Suppress("PackageDirectoryMismatch")
+@file:Suppress("PackageDirectoryMismatch", "unused")
 
 package parserkoans
 
