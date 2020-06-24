@@ -1,37 +1,69 @@
 package parserkoans
 
-import org.junit.Ignore
-import org.junit.Test
+import dev.minutest.ContextBuilder
+import dev.minutest.junit.JUnit5Minutests
+import dev.minutest.rootContext
 
-class `Step 9 - plus-minus-multiply parser` {
+class `Step 9 - plus-minus-multiply parser` : JUnit5Minutests {
+    fun tests() = rootContext<Parser<Expression>> {
+        fixture {
+            object : Parser<Expression> {
 
-    private val expression: Parser<Expression> = TODO("combine parsers")
+                val number = number().map { IntLiteral(it.toInt()) }
 
-    @Ignore
-    @Test fun `1 - add and subtract`() {
-        expression.parse(Input("1 - 2 + 3 - 4"))?.payload.let {
-            it.toStringExpression() shouldEqual "(((1 - 2) + 3) - 4)"
-            it.evaluate() shouldEqual -2
+                val plusOrMinus = inOrder(
+                    ref { expression_ },
+                    repeat(inOrder(oneOf(string(" - "), string(" + ")), ref { expression_ }))
+                ).map { (first, rest) ->
+                    rest.fold(first as Expression) { left, (op, right) ->
+                        when (op) {
+                            " - " -> Minus(left, right)
+                            " + " -> Plus(left, right)
+                            else -> error("")
+                        }
+                    }
+                }
+
+                val multiply = inOrder(
+                    number,
+                    repeat(inOrder(oneOf(string(" * ")), number))
+                ).map { (first, rest) ->
+                    rest.fold(first as Expression) { left, (_, right) ->
+                        Multiply(left, right)
+                    }
+                }
+
+                val expression_: Parser<Expression> = oneOf(multiply, number)
+                val expression: Parser<Expression> = oneOf(plusOrMinus, multiply, number)
+
+                override fun parse(input: Input) = expression.parse(input)
+            }
         }
-    }
 
-    @Ignore
-    @Test fun `2 - multiply three numbers`() {
-        expression.parse(Input("2 * 3 * 4"))?.payload.let {
+        `minus parser tests`()
+
+        `plus parser tests`()
+
+        `multiply parser tests`()
+    }
+}
+
+fun ContextBuilder<Parser<Expression>>.`multiply parser tests`() {
+    test("multiply three numbers") {
+        parse(Input("2 * 3 * 4"))?.payload.let {
             it.toStringExpression() shouldEqual "((2 * 3) * 4)"
             it.evaluate() shouldEqual 24
         }
     }
 
-    @Ignore
-    @Test fun `3 - add and multiply`() {
-        expression.parse(Input("1 * 2 + 3"))?.payload
+    test("add and multiply") {
+        parse(Input("1 * 2 + 3"))?.payload
             .toStringExpression() shouldEqual "((1 * 2) + 3)"
 
-        expression.parse(Input("1 + 2 * 3"))?.payload
+        parse(Input("1 + 2 * 3"))?.payload
             .toStringExpression() shouldEqual "(1 + (2 * 3))"
 
-        expression.parse(Input("1 + 2 * 3 * 4 - 5 - 6"))?.payload
+        parse(Input("1 + 2 * 3 * 4 - 5 - 6"))?.payload
             .toStringExpression() shouldEqual "(((1 + ((2 * 3) * 4)) - 5) - 6)"
     }
 }

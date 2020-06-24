@@ -11,6 +11,7 @@ version = "0.01"
 repositories {
     mavenCentral()
     maven("https://dl.bintray.com/kotlin/kotlin-eap")
+    maven("https://dl.bintray.com/dmcg/oneeyedmen-mvn")
 }
 
 dependencies {
@@ -18,6 +19,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
     testImplementation(kotlin("test-annotations-common"))
+    testImplementation("dev.minutest:minutest:1.11.0")
 }
 
 sourceSets["main"].withConvention(KotlinSourceSet::class) {

@@ -1,43 +1,55 @@
 package parserkoans
 
-import org.junit.Ignore
-import org.junit.Test
+import dev.minutest.ContextBuilder
+import dev.minutest.junit.JUnit5Minutests
+import dev.minutest.rootContext
 
-class `Step 8 - plus-minus parser` {
+class `Step 8 - plus-minus parser` : JUnit5Minutests {
+    fun tests() = rootContext<Parser<Expression>> {
+        fixture {
+            object : Parser<Expression> {
 
-    private val expression: Parser<Expression> = TODO("combine parsers")
+                val number = number().map { IntLiteral(it.toInt()) }
 
-    @Ignore
-    @Test fun `1 - subtract two numbers`() {
-        expression.parse(Input("1 - 2"))?.payload shouldEqual Minus(IntLiteral(1), IntLiteral(2))
-        expression.parse(Input("2 - 1"))?.payload shouldEqual Minus(IntLiteral(2), IntLiteral(1))
-    }
+                val plusOrMinus = inOrder(
+                    number,
+                    repeat(inOrder(oneOf(string(" + "), string(" - ")), number))
+                ).map { (first, rest) ->
+                    rest.fold(first as Expression) { left, (op, right) ->
+                        when (op) {
+                            " - " -> Minus(left, right)
+                            " + " -> Plus(left, right)
+                            else  -> error("")
+                        }
+                    }
+                }
 
-    @Ignore
-    @Test fun `2 - add two numbers`() {
-        expression.parse(Input("1 + 2"))?.payload shouldEqual Plus(IntLiteral(1), IntLiteral(2))
-        expression.parse(Input("12 + 34"))?.payload shouldEqual Plus(IntLiteral(12), IntLiteral(34))
-    }
+                val expression: Parser<Expression> = oneOf(plusOrMinus, number)
 
-    @Ignore
-    @Test fun `3 - subtract three numbers (left associative)`() {
-        expression.parse(Input("1 - 2 - 3"))?.payload.let {
-            it.toStringExpression() shouldEqual "((1 - 2) - 3)"
-            it.evaluate() shouldEqual -4
+                override fun parse(input: Input) = expression.parse(input)
+            }
         }
+
+        `minus parser tests`()
+        `plus parser tests`()
+    }
+}
+
+fun ContextBuilder<Parser<Expression>>.`plus parser tests`() {
+    test("add two numbers") {
+        parse(Input("1 + 2"))?.payload shouldEqual Plus(IntLiteral(1), IntLiteral(2))
+        parse(Input("12 + 34"))?.payload shouldEqual Plus(IntLiteral(12), IntLiteral(34))
     }
 
-    @Ignore
-    @Test fun `4 - add three numbers (left associative)`() {
-        expression.parse(Input("1 + 2 + 3"))?.payload.let {
+    test("add three numbers (left associative)") {
+        parse(Input("1 + 2 + 3"))?.payload.let {
             it.toStringExpression() shouldEqual "((1 + 2) + 3)"
             it.evaluate() shouldEqual 6
         }
     }
 
-    @Ignore
-    @Test fun `5 - add and subtract`() {
-        expression.parse(Input("1 - 2 + 3 - 4"))?.payload.let {
+    test("add and subtract") {
+        parse(Input("1 - 2 + 3 - 4"))?.payload.let {
             it.toStringExpression() shouldEqual "(((1 - 2) + 3) - 4)"
             it.evaluate() shouldEqual -2
         }
