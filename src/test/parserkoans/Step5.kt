@@ -3,7 +3,7 @@ package parserkoans
 import org.junit.Test
 
 fun number(): Parser<String> =
-    oneOrMore(oneOf(*(0..9).map { string(it.toString()) }.toTypedArray()))
+    repeat(oneOf((0..9).map { string(it.toString()) }))
         .map { it.joinToString("") }
 
 fun <T, R> Parser<T>.map(transform: (T) -> R): Parser<R> = object : Parser<R> {
@@ -18,10 +18,12 @@ fun <T, R> Parser<T>.map(transform: (T) -> R): Parser<R> = object : Parser<R> {
 class `Step 5 - number parser` {
     private val parser = number()
 
-    @Test fun `1 - no match`() {
+    @Test fun `1 - match a digit`() {
         parser.parse(Input("")) shouldEqual null
-        parser.parse(Input("foo")) shouldEqual null
-        parser.parse(Input("foo123")) shouldEqual null
+        parser.parse(Input("1")) shouldEqual Output(
+            payload = "1",
+            nextInput = Input("1", offset = 1)
+        )
     }
 
     @Test fun `2 - match all digits`() {
@@ -34,7 +36,7 @@ class `Step 5 - number parser` {
         }
     }
 
-    @Test fun `3 - full match  `() {
+    @Test fun `3 - full match number`() {
         val input = Input("123")
         parser.parse(input) shouldEqual Output(
             payload = "123",
@@ -59,8 +61,9 @@ class `Step 5 - number parser` {
     }
 
     @Test fun `6 - convert payload to Int`() {
+        val intParser: Parser<Int> = parser.map { it.toInt() }
         val input = Input("123")
-        parser.map { it.toInt() }.parse(input) shouldEqual Output(
+        intParser.parse(input) shouldEqual Output(
             payload = 123,
             nextInput = input.consumed()
         )

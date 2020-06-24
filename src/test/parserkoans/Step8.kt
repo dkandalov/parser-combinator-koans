@@ -5,7 +5,7 @@ import org.junit.Test
 class `Step 8 - plus-minus parser` {
     private val number = number().map { IntLiteral(it.toInt()) }
 
-    private val plusOrMinus = inOrder(number, oneOrMore(inOrder(oneOf(string(" + "), string(" - ")), number)))
+    private val plusOrMinus = inOrder(number, repeat(inOrder(oneOf(string(" + "), string(" - ")), number)))
         .map { (first, rest) ->
             rest.fold(first as Expression) { left, (op, right) ->
                 when (op) {
