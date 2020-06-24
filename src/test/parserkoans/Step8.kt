@@ -1,7 +1,6 @@
 package parserkoans
 
 import org.junit.Test
-import parserkoans.util.*
 
 class `Step 8 - plus-minus parser` {
     private val number = number().map { IntLiteral(it.toInt()) }

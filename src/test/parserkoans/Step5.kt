@@ -1,7 +1,6 @@
 package parserkoans
 
 import org.junit.Test
-import parserkoans.util.shouldEqual
 
 fun number(): Parser<String> =
     oneOrMore(oneOf(*(0..9).map { string(it.toString()) }.toTypedArray()))
@@ -25,34 +24,45 @@ class `Step 5 - number parser` {
         parser.parse(Input("foo123")) shouldEqual null
     }
 
-    @Test fun `2 - match digits`() {
-        (0..9).map { it.toString() }
-            .forEach { digit ->
-                parser.parse(Input(digit)) shouldEqual Output(digit, nextInput = Input(digit).consumed())
-            }
+    @Test fun `2 - match all digits`() {
+        val allDigits = (0..9).map { it.toString() }
+        allDigits.forEach { digit ->
+            parser.parse(Input(digit)) shouldEqual Output(
+                payload = digit,
+                nextInput = Input(digit).consumed()
+            )
+        }
     }
 
-    @Test fun `3 - full match`() {
+    @Test fun `3 - full match  `() {
         val input = Input("123")
-        parser.parse(input) shouldEqual
-            Output("123", nextInput = input.consumed())
+        parser.parse(input) shouldEqual Output(
+            payload = "123",
+            nextInput = input.consumed()
+        )
     }
 
-    @Test fun `4 - prefix match`() {
+    @Test fun `4 - prefix match number`() {
         val input = Input("123---")
-        parser.parse(input) shouldEqual
-            Output("123", nextInput = input.copy(offset = 3))
+        parser.parse(input) shouldEqual Output(
+            payload = "123",
+            nextInput = input.copy(offset = 3)
+        )
     }
 
-    @Test fun `5 - postfix match`() {
+    @Test fun `5 - postfix match number`() {
         val input = Input("---123", offset = 3)
-        parser.parse(input) shouldEqual
-            Output("123", nextInput = input.consumed())
+        parser.parse(input) shouldEqual Output(
+            payload = "123",
+            nextInput = input.consumed()
+        )
     }
 
-    @Test fun `6 - convert parser payload to Int`() {
+    @Test fun `6 - convert payload to Int`() {
         val input = Input("123")
-        parser.map { it.toInt() }.parse(input) shouldEqual
-            Output(123, nextInput = input.consumed())
+        parser.map { it.toInt() }.parse(input) shouldEqual Output(
+            payload = 123,
+            nextInput = input.consumed()
+        )
     }
 }

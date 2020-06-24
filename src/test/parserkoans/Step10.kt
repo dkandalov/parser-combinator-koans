@@ -1,7 +1,6 @@
 package parserkoans
 
 import org.junit.Test
-import parserkoans.util.shouldEqual
 
 class `Step 10 - plus-minus-multiply with parens parser` {
     private val number = number().map { IntLiteral(it.toInt()) }
