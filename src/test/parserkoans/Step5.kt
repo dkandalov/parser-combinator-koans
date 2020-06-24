@@ -16,10 +16,12 @@ class `Step 5 - number parser` {
     private val parser = number()
 
     @Ignore
-    @Test fun `1 - no match`() {
+    @Test fun `1 - match a digit`() {
         parser.parse(Input("")) shouldEqual null
-        parser.parse(Input("foo")) shouldEqual null
-        parser.parse(Input("foo123")) shouldEqual null
+        parser.parse(Input("1")) shouldEqual Output(
+            payload = "1",
+            nextInput = Input("1", offset = 1)
+        )
     }
 
     @Ignore
@@ -34,7 +36,7 @@ class `Step 5 - number parser` {
     }
 
     @Ignore
-    @Test fun `3 - full match`() {
+    @Test fun `3 - full match number`() {
         val input = Input("123")
         parser.parse(input) shouldEqual Output(
             payload = "123",
@@ -43,7 +45,7 @@ class `Step 5 - number parser` {
     }
 
     @Ignore
-    @Test fun `4 - prefix match`() {
+    @Test fun `4 - prefix match number`() {
         val input = Input("123---")
         parser.parse(input) shouldEqual Output(
             payload = "123",
@@ -52,7 +54,7 @@ class `Step 5 - number parser` {
     }
 
     @Ignore
-    @Test fun `5 - postfix match`() {
+    @Test fun `5 - postfix match number`() {
         val input = Input("---123", offset = 3)
         parser.parse(input) shouldEqual Output(
             payload = "123",
@@ -61,9 +63,10 @@ class `Step 5 - number parser` {
     }
 
     @Ignore
-    @Test fun `6 - convert parser payload to Int`() {
+    @Test fun `6 - convert payload to Int`() {
+        val intParser: Parser<Int> = TODO()
         val input = Input("123")
-        parser.map { it.toInt() }.parse(input) shouldEqual Output(
+        intParser.parse(input) shouldEqual Output(
             payload = 123,
             nextInput = input.consumed()
         )

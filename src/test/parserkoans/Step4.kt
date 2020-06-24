@@ -3,7 +3,7 @@ package parserkoans
 import org.junit.Ignore
 import org.junit.Test
 
-fun <T> oneOrMore(parser: Parser<T>) = object : Parser<List<T>> {
+fun <T> repeat(parser: Parser<T>) = object : Parser<List<T>> {
     override fun parse(input: Input): Output<List<T>>? {
         TODO()
     }
@@ -11,7 +11,7 @@ fun <T> oneOrMore(parser: Parser<T>) = object : Parser<List<T>> {
 
 class `Step 4 - one or more parser` {
 
-    private val parser = oneOrMore(string("foo"))
+    private val parser = repeat(string("foo"))
 
     @Ignore
     @Test fun `1 - no match`() {

@@ -9,6 +9,8 @@ fun <T> oneOf(vararg parsers: Parser<T>) = object : Parser<T> {
     }
 }
 
+fun <T> oneOf(parsers: List<Parser<T>>): Parser<T> = oneOf(*parsers.toTypedArray())
+
 class `Step 3 - choose the first matching parser` {
     private val parser: Parser<String> =
         oneOf(string("foo"), string("bar"), string("buz"))
