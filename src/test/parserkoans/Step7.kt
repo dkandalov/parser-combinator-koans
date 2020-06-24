@@ -24,4 +24,11 @@ class `Step 7 - minus parser` {
             it.evaluate() shouldEqual -4
         }
     }
+
+    @Test fun `3 - subtract five numbers (left associative)`() {
+        expression.parse(Input("1 - 2 - 3 - 4 - 5"))?.payload.let {
+            it.toStringExpression() shouldEqual "((((1 - 2) - 3) - 4) - 5)"
+            it.evaluate() shouldEqual -4
+        }
+    }
 }
