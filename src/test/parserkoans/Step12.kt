@@ -6,15 +6,7 @@ import org.junit.Test
 fun <T> Parser<T>.with(outputCache: HashMap<Pair<Parser<T>, Int>, Output<T>?>): Parser<T> =
     object : Parser<T> {
         override fun parse(input: Input): Output<T>? {
-            val parser = this@with
-            val pair = Pair(parser, input.offset)
-            if (outputCache.containsKey(pair)) return outputCache[pair]
-            outputCache[pair] = null // Mark parser at offset as work-in-progress
-
-            val output = parser.parse(input)
-
-            outputCache[pair] = output
-            return output
+            TODO()
         }
     }
 
