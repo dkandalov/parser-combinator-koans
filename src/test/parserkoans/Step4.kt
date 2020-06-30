@@ -2,7 +2,7 @@ package parserkoans
 
 import org.junit.Test
 
-fun <T> repeat(parser: Parser<T>): Parser<List<T>> = object : Parser<List<T>> {
+fun <T> onceOrMore(parser: Parser<T>): Parser<List<T>> = object : Parser<List<T>> {
     override fun parse(input: Input): Output<List<T>>? {
         var result = Output(emptyList<T>(), input)
         var output = parser.parse(result.nextInput)
@@ -14,8 +14,8 @@ fun <T> repeat(parser: Parser<T>): Parser<List<T>> = object : Parser<List<T>> {
     }
 }
 
-class `Step 4 - repeat parser` {
-    private val parser = repeat(string("foo"))
+class `Step 4 - apply parser several times` {
+    private val parser = onceOrMore(string("foo"))
 
     @Test fun `1 - no match`() {
         parser.parse(Input("")) shouldEqual null

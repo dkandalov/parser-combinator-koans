@@ -7,4 +7,3 @@ import kotlin.test.assertEquals
 infix fun Any?.shouldEqual(expected: Any?) =
     assertEquals(expected = expected, actual = this)
 
-fun Input.consumed() = copy(offset = value.length)

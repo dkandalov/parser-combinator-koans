@@ -2,13 +2,14 @@ package parserkoans
 
 import org.junit.Test
 
-class `Step 10 - plus-minus-multiply with parens parser` {
+
+object CalculatorGrammar {
     private val number = number().map { IntLiteral(it.toInt()) }
 
     private val plusOrMinus =
         inOrder(
             ref { expression1 },
-            repeat(inOrder(
+            onceOrMore(inOrder(
                 oneOf(string(" + "), string(" - ")),
                 ref { expression1 }
             ))
@@ -25,7 +26,7 @@ class `Step 10 - plus-minus-multiply with parens parser` {
     private val multiply =
         inOrder(
             ref { term },
-            repeat(inOrder(string(" * "), ref { term }))
+            onceOrMore(inOrder(string(" * "), ref { term }))
         ).map { (first, rest) ->
             rest.fold(first) { left, (_, right) -> Multiply(left, right) }
         }
@@ -36,34 +37,37 @@ class `Step 10 - plus-minus-multiply with parens parser` {
 
     private val term = oneOf(parens, number)
     private val expression1 = oneOf(multiply, term)
-    private val expression: Parser<Expression> = oneOf(plusOrMinus, multiply, term)
+    private val expression: Parser<ASTNode> = oneOf(plusOrMinus, multiply, term)
 
+    fun parse(s: String) = expression.parse(Input(s))
+}
 
+class `Step 10 - plus-minus-multiply with parens parser` {
     @Test fun `1 - number with parens`() {
-        expression.parse(Input("(123)"))?.payload shouldEqual IntLiteral(123)
-        expression.parse(Input("((123))"))?.payload shouldEqual IntLiteral(123)
+        CalculatorGrammar.parse("(123)")?.payload shouldEqual IntLiteral(123)
+        CalculatorGrammar.parse("((123))")?.payload shouldEqual IntLiteral(123)
     }
 
     @Test fun `2 - binary operations with parens`() {
-        expression.parse(Input("(1 + 2)"))?.payload shouldEqual Plus(IntLiteral(1), IntLiteral(2))
-        expression.parse(Input("(1 - 2)"))?.payload shouldEqual Minus(IntLiteral(1), IntLiteral(2))
-        expression.parse(Input("(1 * 2)"))?.payload shouldEqual Multiply(IntLiteral(1), IntLiteral(2))
+        CalculatorGrammar.parse("(1 + 2)")?.payload shouldEqual Plus(IntLiteral(1), IntLiteral(2))
+        CalculatorGrammar.parse("(1 - 2)")?.payload shouldEqual Minus(IntLiteral(1), IntLiteral(2))
+        CalculatorGrammar.parse("(1 * 2)")?.payload shouldEqual Multiply(IntLiteral(1), IntLiteral(2))
 
-        expression.parse(Input("(1) + (2)"))?.payload shouldEqual Plus(IntLiteral(1), IntLiteral(2))
-        expression.parse(Input("(1) - (2)"))?.payload shouldEqual Minus(IntLiteral(1), IntLiteral(2))
-        expression.parse(Input("(1) * (2)"))?.payload shouldEqual Multiply(IntLiteral(1), IntLiteral(2))
+        CalculatorGrammar.parse("(1) + (2)")?.payload shouldEqual Plus(IntLiteral(1), IntLiteral(2))
+        CalculatorGrammar.parse("(1) - (2)")?.payload shouldEqual Minus(IntLiteral(1), IntLiteral(2))
+        CalculatorGrammar.parse("(1) * (2)")?.payload shouldEqual Multiply(IntLiteral(1), IntLiteral(2))
     }
 
     @Test fun `3 - change associativity with parens`() {
-        expression.parse(Input("1 - (2 + (3 - 4))"))?.payload
+        CalculatorGrammar.parse("1 - (2 + (3 - 4))")?.payload
             .toStringExpression() shouldEqual "(1 - (2 + (3 - 4)))"
     }
 
     @Test fun `4 - change precedence with parens`() {
-        expression.parse(Input("(1 - 2) + (3 - 4)"))?.payload
+        CalculatorGrammar.parse("(1 - 2) + (3 - 4)")?.payload
             .toStringExpression() shouldEqual "((1 - 2) + (3 - 4))"
 
-        expression.parse(Input("(1 + 2) * 3 * (4 - 5)"))?.payload
+        CalculatorGrammar.parse("(1 + 2) * 3 * (4 - 5)")?.payload
             .toStringExpression() shouldEqual "(((1 + 2) * 3) * (4 - 5))"
     }
 }

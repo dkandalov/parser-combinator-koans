@@ -2,9 +2,10 @@ package parserkoans
 
 import org.junit.Test
 
+val digit = oneOf((0..9).map { string(it.toString()) })
+
 fun number(): Parser<String> =
-    repeat(oneOf((0..9).map { string(it.toString()) }))
-        .map { it.joinToString("") }
+    onceOrMore(digit).map { it.joinToString("") }
 
 fun <T, R> Parser<T>.map(transform: (T) -> R): Parser<R> = object : Parser<R> {
     override fun parse(input: Input): Output<R>? {

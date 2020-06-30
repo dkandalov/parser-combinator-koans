@@ -21,7 +21,7 @@ fun <T1, T2, T3> inOrder(parser1: Parser<T1>, parser2: Parser<T2>, parser3: Pars
         }
     }
 
-class `Step 2 - combine parsers in order` {
+class `Step 2 - apply parsers in order` {
     @Test fun `1 - no match`() {
         val parser = inOrder(string("foo"), string("bar"))
         parser.parse(Input("---")) shouldEqual null
