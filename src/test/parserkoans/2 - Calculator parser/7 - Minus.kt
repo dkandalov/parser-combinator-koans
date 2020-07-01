@@ -1,7 +1,14 @@
-package parserkoans.`2 - Calculator parser`
+package parserkoans
 
 import org.junit.Test
-import parserkoans.*
+
+/*
+ * To complete this koan, assign to `MinusGrammar.expression` a parser which produces `IntLiteral` or `Minus`.
+ * This should be achievable by combining parsers from the previous tasks.
+ *
+ * Note that unlike the previous koan, `Minus` has to be left-associative
+ * (i.e the operations are grouped from the left to right).
+ */
 
 object MinusGrammar {
 

@@ -2,6 +2,18 @@ package parserkoans
 
 import org.junit.Test
 
+/*
+ * To complete this koan, implement `inOrder()` functions to return parser
+ * which sequentially uses `parser1`, `parser2` (and `parser3`) to process input.
+ * If any of the parsers can't consume input, the overall result is `null`.
+ *
+ * After finishing this koan, it's fair to say that we have a
+ * [parser combinator](https://en.wikipedia.org/wiki/Parser_combinator)
+ * which is a fancy name for parser which delegates to other parsers
+ * (you can also think about it as a [higher-order function](https://en.wikipedia.org/wiki/Higher-order_function)
+ * or [composite pattern](https://en.wikipedia.org/wiki/Composite_pattern)).
+ */
+
 fun <T1, T2> inOrder(parser1: Parser<T1>, parser2: Parser<T2>) =
     object : Parser<List2<T1, T2>> {
         override fun parse(input: Input): Output<List2<T1, T2>>? {

@@ -2,6 +2,12 @@ package parserkoans
 
 import org.junit.Test
 
+/*
+ * To complete this koan, implement `onceOrMore()` function to return parser
+ * which applies the `parser` passed as an argument one or more times,
+ * or returns `null` if it can't be applied at all.
+ */
+
 fun <T> onceOrMore(parser: Parser<T>): Parser<List<T>> = object : Parser<List<T>> {
     override fun parse(input: Input): Output<List<T>>? {
         TODO()

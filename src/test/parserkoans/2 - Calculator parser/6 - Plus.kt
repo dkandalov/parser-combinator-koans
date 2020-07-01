@@ -1,7 +1,21 @@
-package parserkoans.`2 - Calculator parser`
+package parserkoans
 
 import org.junit.Test
-import parserkoans.*
+
+/*
+ * To complete this koan, assign to `PlusGrammar.expression` a parser which produces `IntLiteral` or `Plus`.
+ * This should be achievable by combining parsers from the previous koans.
+ *
+ * The parsers in this koan are all defined inside `PlusGrammar` object.
+ * In theory, we could use a function and define parsers as local variables.
+ * However, we can't reference local variables defined on the following lines,
+ * but can forward-reference fields, e.g. with `ref { expression }`.
+ *
+ * This koan can be completed without forward-references, but they will be useful later.
+ *
+ * After finishing the koan, you should have the first somewhat realistic parser
+ * which consumes a string and produces [abstract syntax tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
+ */
 
 fun <T> ref(f: () -> Parser<T>): Parser<T> = object : Parser<T> {
     override fun parse(input: Input) = f().parse(input)

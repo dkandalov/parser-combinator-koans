@@ -2,6 +2,12 @@ package parserkoans
 
 import org.junit.Test
 
+/*
+ * To complete this koan, implement `oneOf()` function to return parser
+ * which tries all `parsers` and applies the first one which was able to consume input,
+ * or `null` if none of the `parsers` match.
+ */
+
 fun <T> oneOf(vararg parsers: Parser<T>): Parser<T> = object : Parser<T> {
     override fun parse(input: Input): Output<T>? {
         TODO()

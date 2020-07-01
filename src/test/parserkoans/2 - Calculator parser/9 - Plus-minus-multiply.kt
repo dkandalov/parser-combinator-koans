@@ -1,7 +1,19 @@
-package parserkoans.`2 - Calculator parser`
+package parserkoans
 
 import org.junit.Test
-import parserkoans.*
+
+/*
+ * To complete this koan, assign to `PlusMinusMultGrammar.expression` a parser which produces
+ * `IntLiteral`, `Plus`, `Minus` or `Multiply`. (It's ok to copy-paste some code from the previous task.)
+ *
+ * Just like the parser from the previous koan, this parser should be able to parse `Plus` and `Minus`
+ * with left-associativity. But in addition, it should be able to parse `Multiply` with higher operator precedence
+ * (i.e. just like in mathematics multiplication is processed/calculated first).
+ *
+ * Hint:
+ * `val expression = oneOf(plusOrMinus, multiply, number)` can almost be used for specifying operator precedence,
+ * especially if the operator parsers refer to expression itself... or something along these lines.
+ */
 
 object PlusMinusMultGrammar {
 

@@ -1,7 +1,15 @@
-package parserkoans.`2 - Calculator parser`
+package parserkoans
 
 import org.junit.Test
-import parserkoans.*
+
+/*
+ * To complete this koan, assign to `PlusMinusGrammar.expression` a parser
+ * which produces `IntLiteral`, `Plus` or `Minus`. Note that both `Plus` and `Minus` operations are left-associative.
+ *
+ * At this point, `PlusMinusGrammar` object should more or less justify being called "grammar"
+ * by looking somewhat similar to grammars expressed in
+ * [Backus–Naur form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form).
+ */
 
 object PlusMinusGrammar {
 

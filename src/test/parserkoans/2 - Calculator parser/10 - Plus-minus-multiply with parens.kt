@@ -1,8 +1,12 @@
-package parserkoans.`2 - Calculator parser`
+package parserkoans
 
 import org.junit.Test
-import parserkoans.*
 
+/*
+ * To complete this koan, assign to `CalculatorGrammar.expression` a parser which produces
+ * `IntLiteral`, `Plus`, `Minus` or `Multiply` and can handle parens by processing expressions inside parens first.
+ * (It's ok to copy-paste some code from the previous task.)
+ */
 
 object CalculatorGrammar {
 

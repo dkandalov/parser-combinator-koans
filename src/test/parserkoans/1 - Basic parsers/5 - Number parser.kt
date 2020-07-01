@@ -2,6 +2,12 @@ package parserkoans
 
 import org.junit.Test
 
+/*
+ * To complete this koan, implement `number()` function to return parser
+ * which combines parsers from the previous tasks to read a number from input,
+ * where "number" is a non-negative integer.
+ */
+
 fun number(): Parser<String> = TODO()
 
 fun <T, R> Parser<T>.map(transform: (T) -> R): Parser<R> = object : Parser<R> {

@@ -1,7 +1,12 @@
-package parserkoans.`2 - Calculator parser`
+package parserkoans
 
 import org.junit.Test
-import parserkoans.*
+
+/**
+ * There is no need to write any code in this koan.
+ * The main point here is that once the input is transformed into syntax tree,
+ * it's easy to write `evaluate()` function for it.
+ */
 
 fun ASTNode.evaluate(): Int =
     when (this) {
