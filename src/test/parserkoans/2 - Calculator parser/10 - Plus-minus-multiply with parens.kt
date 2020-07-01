@@ -5,7 +5,7 @@ import org.junit.Test
 /*
  * To complete this koan, assign to `CalculatorGrammar.expression` a parser which produces
  * `IntLiteral`, `Plus`, `Minus` or `Multiply` and can handle parens by processing expressions inside parens first.
- * (It's ok to copy-paste some code from the previous task.)
+ * (It's ok to copy-paste some code from the previous koans.)
  */
 
 object CalculatorGrammar {
