@@ -16,41 +16,41 @@ fun string(s: String) = object : Parser<String> {
 }
 
 class `Step 1 - string parser` {
-    private val foo: Parser<String> = string("foo")
-    private val bar: Parser<String> = string("bar")
+    private val fooParser: Parser<String> = string("foo")
+    private val barParser: Parser<String> = string("bar")
 
     @Test fun `1 - no match`() {
-        foo.parse(Input("")) shouldEqual null
-        foo.parse(Input("---")) shouldEqual null
-        foo.parse(Input("f--")) shouldEqual null
-        foo.parse(Input("fo-")) shouldEqual null
-        foo.parse(Input("foo", offset = 1)) shouldEqual null
-        foo.parse(Input("-foo")) shouldEqual null
+        fooParser.parse(Input("")) shouldEqual null
+        fooParser.parse(Input("---")) shouldEqual null
+        fooParser.parse(Input("f--")) shouldEqual null
+        fooParser.parse(Input("fo-")) shouldEqual null
+        fooParser.parse(Input("foo", offset = 1)) shouldEqual null
+        fooParser.parse(Input("-foo")) shouldEqual null
 
-        foo.parse(Input("bar")) shouldEqual null
-        bar.parse(Input("foo")) shouldEqual null
+        fooParser.parse(Input("bar")) shouldEqual null
+        barParser.parse(Input("foo")) shouldEqual null
     }
 
     @Test fun `2 - full match`() {
-        foo.parse(Input("foo")) shouldEqual Output(
+        fooParser.parse(Input("foo")) shouldEqual Output(
             payload = "foo",
             nextInput = Input("foo").consumed()
         )
-        bar.parse(Input("bar")) shouldEqual Output(
+        barParser.parse(Input("bar")) shouldEqual Output(
             payload = "bar",
             nextInput = Input("bar").consumed()
         )
     }
 
     @Test fun `3 - prefix match`() {
-        foo.parse(Input("foo--")) shouldEqual Output(
+        fooParser.parse(Input("foo--")) shouldEqual Output(
             payload = "foo",
             nextInput = Input("foo--", offset = 3)
         )
     }
 
     @Test fun `4 - postfix match`() {
-        foo.parse(Input("--foo", offset = 2)) shouldEqual Output(
+        fooParser.parse(Input("--foo", offset = 2)) shouldEqual Output(
             payload = "foo",
             nextInput = Input("--foo", offset = 5)
         )
