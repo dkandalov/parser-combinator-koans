@@ -1,13 +1,14 @@
-package parserkoans
+package parserkoans.`2 - Calculator parser`
 
 import org.junit.Test
+import parserkoans.*
 
 fun ASTNode.evaluate(): Int =
     when (this) {
         is IntLiteral -> value
-        is Plus -> left.evaluate() + right.evaluate()
-        is Minus -> left.evaluate() - right.evaluate()
-        is Multiply -> left.evaluate() * right.evaluate()
+        is Plus       -> left.evaluate() + right.evaluate()
+        is Minus      -> left.evaluate() - right.evaluate()
+        is Multiply   -> left.evaluate() * right.evaluate()
     }
 
 class `Step 11 - evaluate expression` {

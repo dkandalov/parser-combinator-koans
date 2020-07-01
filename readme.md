@@ -13,10 +13,10 @@ To start with, ask yourself the following questions (this is not a quiz, so not 
 
 ### How to use these koans?
  - compile the project (using Gradle `compileTestKotlin` task or IDE)
- - take a look at `src/test/parserkoans/Step0.kt` to get familiar with core classes
- - open `src/test/parserkoans/Step1.kt`
+ - take a look at `src/test/parserkoans/1 - Basic parsers/0 - Parser API.kt` to get familiar with core classes
+ - open `src/test/parserkoans/1 - Basic parsers/1 - String parser.kt`
     - run the tests to see them fail with `NotImplementedError`
     - make the first test pass by implementing `TODO()`
     - make the second test pass by adding more functionality
     - repeat until all tests in the step are passing
- - repeat the above for other steps
+ - repeat the above for the next steps

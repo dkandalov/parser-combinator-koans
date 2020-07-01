@@ -1,6 +1,7 @@
-package parserkoans
+package parserkoans.`2 - Calculator parser`
 
 import org.junit.Test
+import parserkoans.*
 
 object PlusMinusMultGrammar {
 

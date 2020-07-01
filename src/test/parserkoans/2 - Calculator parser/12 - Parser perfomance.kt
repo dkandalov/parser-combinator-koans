@@ -1,7 +1,8 @@
-package parserkoans
+package parserkoans.`2 - Calculator parser`
 
 import org.junit.Before
 import org.junit.Test
+import parserkoans.*
 
 fun <T> Parser<T>.with(outputCache: HashMap<Pair<Parser<T>, Int>, Output<T>?>): Parser<T> =
     object : Parser<T> {

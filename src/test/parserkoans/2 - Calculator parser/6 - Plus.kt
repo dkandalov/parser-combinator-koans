@@ -1,6 +1,7 @@
-package parserkoans
+package parserkoans.`2 - Calculator parser`
 
 import org.junit.Test
+import parserkoans.*
 
 fun <T> ref(f: () -> Parser<T>): Parser<T> = object : Parser<T> {
     override fun parse(input: Input) = f().parse(input)
