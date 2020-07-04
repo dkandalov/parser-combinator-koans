@@ -23,7 +23,12 @@ fun <T> ref(f: () -> Parser<T>): Parser<T> = object : Parser<T> {
 
 private object PlusGrammar {
 
-    private val expression: Parser<ASTNode> = TODO()
+    private val int = number().map { IntLiteral(it.toInt()) }
+
+    private val plus = inOrder(int, string(" + "), ref { expression })
+        .map { (left, _, right) -> Plus(left, right) }
+
+    private val expression: Parser<ASTNode> = oneOf(plus, int)
 
     fun parse(s: String) = expression.parse(Input(s))
 }

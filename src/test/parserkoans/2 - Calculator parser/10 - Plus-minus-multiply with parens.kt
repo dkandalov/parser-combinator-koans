@@ -10,7 +10,39 @@ import org.junit.Test
 
 object CalculatorGrammar {
 
-    private val expression: Parser<ASTNode> = TODO()
+    private val int = number().map { IntLiteral(it.toInt()) }
+
+    private val plusOrMinus = inOrder(
+        ref { expression2 },
+        oneOrMore(inOrder(
+            oneOf(string(" - "), string(" + ")),
+            ref { expression2 }
+        ))
+    ).map { (first, rest) ->
+        rest.fold(first) { left, (op, right) ->
+            when (op) {
+                " + " -> Plus(left, right)
+                " - " -> Minus(left, right)
+                else -> error("")
+            }
+        }
+    }
+
+    private val multiply = inOrder(
+        ref { expression3 }, oneOrMore(inOrder(string(" * "), ref { expression3 }))
+    ).map { (first, rest) ->
+        rest.fold(first) { left, (_, right) ->
+            Multiply(left, right)
+        }
+    }
+
+    private val parens =
+        inOrder(string("("), ref { expression }, string(")"))
+            .map { (_, it, _) -> it }
+
+    private val expression3: Parser<ASTNode> = oneOf(parens, int)
+    private val expression2: Parser<ASTNode> = oneOf(multiply, parens, int)
+    private val expression: Parser<ASTNode> = oneOf(plusOrMinus, multiply, parens, int)
 
     fun parse(s: String) = expression.parse(Input(s))
 }

@@ -14,7 +14,25 @@ import org.junit.Test
 
 private object PlusMinusGrammar {
 
-    private val expression: Parser<ASTNode> = TODO()
+    private val int = number().map { IntLiteral(it.toInt()) }
+
+    private val plusOrMinus = inOrder(
+        int,
+        oneOrMore(inOrder(
+            oneOf(string(" + "), string(" - ")),
+            int
+        ))
+    ).map { (first, rest) ->
+        rest.fold(first as ASTNode) { left, (op, right) ->
+            when (op) {
+                " + " -> Plus(left, right)
+                " - " -> Minus(left, right)
+                else -> error("")
+            }
+        }
+    }
+
+    private val expression: Parser<ASTNode> = oneOf(plusOrMinus, int)
 
     fun parse(s: String) = expression.parse(Input(s))
 }

@@ -18,14 +18,19 @@ import org.junit.Test
 fun <T1, T2> inOrder(parser1: Parser<T1>, parser2: Parser<T2>) =
     object : Parser<Pair<T1, T2>> {
         override fun parse(input: Input): Output<Pair<T1, T2>>? {
-            TODO()
+            val output1 = parser1.parse(input) ?: return null
+            val output2 = parser2.parse(output1.nextInput) ?: return null
+            return Output(Pair(output1.payload, output2.payload), output2.nextInput)
         }
     }
 
 fun <T1, T2, T3> inOrder(parser1: Parser<T1>, parser2: Parser<T2>, parser3: Parser<T3>) =
     object : Parser<Triple<T1, T2, T3>> {
         override fun parse(input: Input): Output<Triple<T1, T2, T3>>? {
-            TODO()
+            val output1 = parser1.parse(input) ?: return null
+            val output2 = parser2.parse(output1.nextInput) ?: return null
+            val output3 = parser3.parse(output2.nextInput) ?: return null
+            return Output(Triple(output1.payload, output2.payload, output3.payload), output3.nextInput)
         }
     }
 

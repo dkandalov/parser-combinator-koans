@@ -12,7 +12,12 @@ import org.junit.Test
  */
 
 fun string(s: String) = object : Parser<String> {
-    override fun parse(input: Input) = TODO()
+    override fun parse(input: Input) =
+        if (!input.unprocessed.startsWith(s)) null
+        else Output(
+            payload = s,
+            nextInput = input.copy(offset = input.offset + s.length)
+        )
 }
 
 class `Step 1 - string parser` {

@@ -10,12 +10,17 @@ import org.junit.Test
  * i.e. there is no need to create another `Parser` object.
  */
 
-fun number(): Parser<String> = TODO()
+private val digits = (0..9).map { string(it.toString()) }
+
+fun number(): Parser<String> =
+    oneOrMore(oneOf(digits)).map { it.joinToString("") }
+
 
 fun <T, R> Parser<T>.map(transform: (T) -> R): Parser<R> = object : Parser<R> {
     override fun parse(input: Input): Output<R>? {
         val parser = this@map // parser on which `.map()` is defined as an extension function
-        TODO()
+        val output = parser.parse(input) ?: return null
+        return Output(transform(output.payload), output.nextInput)
     }
 }
 
