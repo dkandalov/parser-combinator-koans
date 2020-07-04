@@ -9,9 +9,10 @@ import org.junit.Test
  *
  * After finishing this koan, it's fair to say that we have a
  * [parser combinator](https://en.wikipedia.org/wiki/Parser_combinator)
- * which is a fancy name for parser which delegates to other parsers
- * (you can also think about it as a [higher-order function](https://en.wikipedia.org/wiki/Higher-order_function)
- * or [composite pattern](https://en.wikipedia.org/wiki/Composite_pattern)).
+ * which is a fancy name for a parser which delegates to other parsers.
+ * You can also think about it as a
+ * [higher-order function](https://en.wikipedia.org/wiki/Higher-order_function)
+ * or [composite pattern](https://en.wikipedia.org/wiki/Composite_pattern).
  */
 
 fun <T1, T2> inOrder(parser1: Parser<T1>, parser2: Parser<T2>) =

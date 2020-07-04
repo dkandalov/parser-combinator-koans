@@ -4,8 +4,10 @@ import org.junit.Test
 
 /*
  * To complete this koan, implement `number()` function to return parser
- * which combines parsers from the previous koans to read a number from input,
- * where "number" is a non-negative integer.
+ * which reads a number from input, where "number" is a non-negative integer.
+ *
+ * You should be able to do it by combining parsers from the previous koans,
+ * i.e. there is no need to create another `Parser` object.
  */
 
 fun number(): Parser<String> = TODO()

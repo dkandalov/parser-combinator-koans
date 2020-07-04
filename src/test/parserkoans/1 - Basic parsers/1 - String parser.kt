@@ -4,10 +4,10 @@ import org.junit.Test
 
 /*
  * To complete this koan, implement `string()` function to return parser
- * which can consume `Input` if it starts with the specified `value`.
+ * which consumes `Input` if it starts with the specified `value`.
  *
- * This parser can seem a bit pointless because producing `Output` with
- * `String` as payload is not much more "structured" than the input,
+ * This parser can seem a bit pointless because `Output` with `String`
+ * as a payload is not much more structured than the input,
  * but it's a building block for the other parsers and will make more sense later.
  */
 
