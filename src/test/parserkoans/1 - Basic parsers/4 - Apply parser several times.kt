@@ -8,14 +8,14 @@ import org.junit.Test
  * or returns `null` if it can't be applied at all.
  */
 
-fun <T> onceOrMore(parser: Parser<T>): Parser<List<T>> = object : Parser<List<T>> {
+fun <T> oneOrMore(parser: Parser<T>): Parser<List<T>> = object : Parser<List<T>> {
     override fun parse(input: Input): Output<List<T>>? {
         TODO()
     }
 }
 
 class `Step 4 - apply parser several times` {
-    private val parser = onceOrMore(string("foo"))
+    private val parser = oneOrMore(string("foo"))
 
     @Test fun `1 - no match`() {
         parser.parse(Input("")) shouldEqual null

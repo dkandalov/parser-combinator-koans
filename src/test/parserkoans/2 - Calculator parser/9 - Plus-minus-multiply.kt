@@ -15,7 +15,7 @@ import org.junit.Test
  * especially if the operator parsers refer to expression itself... or something along these lines.
  */
 
-object PlusMinusMultGrammar {
+private object PlusMinusMultGrammar {
 
     private val expression: Parser<ASTNode> = TODO()
 

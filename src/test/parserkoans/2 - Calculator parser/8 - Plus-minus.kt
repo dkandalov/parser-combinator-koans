@@ -5,13 +5,14 @@ import org.junit.Test
 /*
  * To complete this koan, assign to `PlusMinusGrammar.expression` a parser
  * which produces `IntLiteral`, `Plus` or `Minus`. Note that both `Plus` and `Minus` operations are left-associative.
+ * (It's ok to copy-paste some code from the previous koan.)
  *
  * At this point, `PlusMinusGrammar` object should more or less justify being called "grammar"
  * by looking somewhat similar to grammars expressed in
  * [Backus–Naur form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form).
  */
 
-object PlusMinusGrammar {
+private object PlusMinusGrammar {
 
     private val expression: Parser<ASTNode> = TODO()
 
@@ -42,5 +43,8 @@ class `Step 8 - plus-minus parser` {
     @Test fun `5 - add and subtract`() {
         PlusMinusGrammar.parse("1 - 2 + 3 - 4")?.payload
             .toStringExpression() shouldEqual "(((1 - 2) + 3) - 4)"
+
+        PlusMinusGrammar.parse("1 + 2 - 3 + 4")?.payload
+            .toStringExpression() shouldEqual "(((1 + 2) - 3) + 4)"
     }
 }

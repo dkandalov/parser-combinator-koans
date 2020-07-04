@@ -10,7 +10,7 @@ import org.junit.Test
  * (i.e the operations are grouped from the left to right).
  */
 
-object MinusGrammar {
+private object MinusGrammar {
 
     private val expression: Parser<ASTNode> = TODO()
 
