@@ -3,7 +3,7 @@ package parserkoans
 import org.junit.Test
 
 /*
- * To complete this koan, implement `string()` function to return parser
+ * To complete this koan, implement `string()` function to return a parser
  * which consumes `Input` if it starts with the specified `value`.
  *
  * This parser can seem a bit pointless because `Output` with `String`

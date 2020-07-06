@@ -5,7 +5,7 @@ import org.junit.Test
 /*
  * To complete this koan, assign to `PlusMinusGrammar.expression` a parser
  * which produces `IntLiteral`, `Plus` or `Minus`. Note that both `Plus` and `Minus` operations are left-associative.
- * (It's ok to copy-paste some code from the previous koan.)
+ * (It's ok to copy and paste some code from the previous koan.)
  *
  * At this point, `PlusMinusGrammar` object should more or less justify being called "grammar"
  * by looking somewhat similar to grammars expressed in

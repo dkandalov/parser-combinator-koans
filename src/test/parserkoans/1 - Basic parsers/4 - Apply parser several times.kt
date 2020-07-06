@@ -3,7 +3,7 @@ package parserkoans
 import org.junit.Test
 
 /*
- * To complete this koan, implement `oneOrMore()` function to return parser
+ * To complete this koan, implement `oneOrMore()` function to return a parser
  * which applies the `parser` passed as an argument one or more times,
  * or returns `null` if it can't be applied at all.
  */

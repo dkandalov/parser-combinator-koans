@@ -8,8 +8,8 @@ import org.junit.Test
  *
  * The parsers in this koan are all defined inside `PlusGrammar` object.
  * In theory, we could use a function and define parsers as local variables.
- * However, we can't reference local variables defined on the following lines,
- * but can forward-reference fields, e.g. with `ref { expression }`.
+ * However, we can only reference local variables which are already defined on the previous lines,
+ * unlike fields which can be forward-referenced, e.g. with `ref { expression }`.
  *
  * This koan can be completed without forward-references, but they will be useful later.
  *

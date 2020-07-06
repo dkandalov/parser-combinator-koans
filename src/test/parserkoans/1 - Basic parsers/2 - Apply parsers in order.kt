@@ -3,7 +3,7 @@ package parserkoans
 import org.junit.Test
 
 /*
- * To complete this koan, implement `inOrder()` functions to return parser
+ * To complete this koan, implement `inOrder()` functions to return a parser
  * which sequentially uses `parser1`, `parser2` (and `parser3`) to process input.
  * If any of the parsers can't consume input, the overall result is `null`.
  *

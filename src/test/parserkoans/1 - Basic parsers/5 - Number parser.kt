@@ -3,7 +3,7 @@ package parserkoans
 import org.junit.Test
 
 /*
- * To complete this koan, implement `number()` function to return parser
+ * To complete this koan, implement `number()` function to return a parser
  * which reads a number from input, where "number" is a non-negative integer.
  *
  * You should be able to do it by combining parsers from the previous koans,

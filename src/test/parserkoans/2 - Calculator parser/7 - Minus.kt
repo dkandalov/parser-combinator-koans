@@ -6,8 +6,8 @@ import org.junit.Test
  * To complete this koan, assign to `MinusGrammar.expression` a parser which produces `IntLiteral` or `Minus`.
  * This should be achievable by combining parsers from the previous koans.
  *
- * Note that unlike the previous koan, `Minus` has to be left-associative
- * (i.e the operations are grouped from the left to right).
+ * Note that unlike the previous koan, `Minus` has to be left-associative,
+ * i.e. the operations are grouped from the left to right.
  */
 
 private object MinusGrammar {

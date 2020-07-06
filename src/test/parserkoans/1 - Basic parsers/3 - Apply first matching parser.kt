@@ -3,7 +3,7 @@ package parserkoans
 import org.junit.Test
 
 /*
- * To complete this koan, implement `oneOf()` function to return parser
+ * To complete this koan, implement `oneOf()` function to return a parser
  * which tries all `parsers` and applies the first one which was able to consume input,
  * or `null` if none of the `parsers` match.
  */
