@@ -20,3 +20,8 @@ To start with, ask yourself the following questions (this is not a quiz, so not 
     - make the second test pass by adding more functionality
     - repeat until all tests in the step are passing
  - repeat the above for the next steps
+
+
+### See also
+ - [Parser combinator koans as a Stepik course](https://github.com/dkandalov/Parser_Combinator_Koans)
+ - [Parser4k](https://github.com/fork-handles/forkhandles/tree/trunk/parser4k) - recursive descent parser combinator library for Kotlin with support for left recursion
